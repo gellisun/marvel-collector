@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>All Comics</h1>
+{% for comic in comics %}
+<div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+        <div class="card-image">
+          <img src="{{ comic.img_url }}">
+          <span class="card-title">{{ comic.name }}</span>
+        </div>
+        <div class="card-content">
+          <h5>Published: {{ comic.published }}</h5>
+          <h6>Writer: {{ comic.writer }}</h6>
+          <h6>Cover: {{ comic.cover }}</h6>
+        </div>
+        <div class="card-action">
+          <a href="#">Comic's Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+{% endblock %}

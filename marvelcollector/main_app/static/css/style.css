@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  nav, footer.page-footer {
+    padding-bottom: 1rem;
+    text-align: right;
+    background-color: #d32f2f;
+  }
+
+  img {
+    width: 5%;
+    height: auto;
+  }
+
+  span.card-title {
+    background-color: rgba(0,0,0, 0.7);
+  }
