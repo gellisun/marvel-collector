@@ -13,11 +13,6 @@ body {
     text-align: right;
   }
 
-  img {
-    width: 5%;
-    height: auto;
-  }
-
   span.card-title {
     background-color: rgba(0,0,0, 0.7);
   }
