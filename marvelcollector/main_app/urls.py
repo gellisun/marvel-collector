@@ -9,4 +9,5 @@ urlpatterns = [
     path('comics/create/', views.ComicCreate.as_view(), name='comics_create'),
     path('comics/<int:pk>/update/', views.ComicUpdate.as_view(), name='comics_update'),
     path('comics/<int:pk>/delete/', views.ComicDelete.as_view(), name='comics_delete'),
+    path('comics/<int:comic_id>/add_vote/', views.add_vote, name='add_vote'),
 ]
