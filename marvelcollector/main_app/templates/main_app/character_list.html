@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Characters' List</h1>
+
+{% for character in character_list %}
+  <a href="{% url 'characters_detail' character.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ character.name }}</span>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

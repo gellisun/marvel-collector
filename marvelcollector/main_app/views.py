@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Comic
+from django.views.generic import ListView, DetailView
+from .models import Comic, Character
 from .forms import VoteForm
 
 def home(request):
@@ -37,3 +38,21 @@ class ComicUpdate(UpdateView):
 class ComicDelete(DeleteView):
     model = Comic
     success_url = '/comics'
+
+class CharacterList(ListView):
+  model = Character
+
+class CharacterDetail(DetailView):
+  model = Character
+
+class CharacterCreate(CreateView):
+  model = Character
+  fields = '__all__'
+
+class CharacterUpdate(UpdateView):
+  model = Character
+  fields = ['name', 'image', 'description']
+
+class CharacterDelete(DeleteView):
+  model = Character
+  success_url = '/characters'

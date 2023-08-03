@@ -8,6 +8,17 @@ RATINGS = (
     ('4', 'Very Good'),
     ('5', 'Amazing'),
 )
+
+class Character(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.CharField(max_length=50)
+    description = models.TextField(blank=True, max_length=250)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('characters_detail', kwargs={'pk': self.id})
 class Comic(models.Model):
     name = models.CharField(max_length=100)
     published = models.DateField()
@@ -16,6 +27,7 @@ class Comic(models.Model):
     cover = models.CharField(max_length=100)
     img_url = models.URLField()
     description = models.TextField(max_length=1000)
+    characters = models.ManyToManyField(Character)
 
     def __str__(self):
         return self.name

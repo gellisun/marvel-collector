@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Character Details</h1>
+<a class="waves-effect waves-light btn-small" href="/characters">Go Back</a><br><br>
+<div class="row">
+    <div class="col s12 m7">
+        <div class="card-medium">
+            <div class="card-image">
+                <img src="{{ character.image }}">
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">{{ character.name }}</h4>
+                <p>{{ character.description }}</p>
+            </div>
+            <div class="card-action">
+                <a class="waves-effect waves-light btn-small" href="{% url 'characters_update' character.id %}">Edit</a>
+                <a class="waves-effect waves-light btn-small" href="{% url 'characters_delete' character.id %}">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
