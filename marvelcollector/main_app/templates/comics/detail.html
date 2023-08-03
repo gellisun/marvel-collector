@@ -4,38 +4,41 @@
 {% block content %}
 
 <h1>Comic Details</h1>
-<a class="waves-effect waves-light btn-small" href="/comics">Go Back</a><br><br>
+<a class="waves-effect waves-light btn-small red lighten-1" href="/comics">Go Back</a><br><br>
 <div class="row">
-  <div class="col s12 m7">
-    <div class="card-medium">
-      <div class="card-image">
-        <img src="{{ comic.img_url }}">
-      </div>
-      <div class="card-content">
-        <h4 class="card-title">{{ comic.name }}</h4>
-        <h5>Published: {{ comic.published }}</h5>
-        <h6>Writer: {{ comic.writer }}</h6>
-        <h6>Cover: {{ comic.cover }}</h6>
-        <p>{{ comic.description }}</p>
-      </div>
-      <div class="card-action">
-        <a class="waves-effect waves-light btn-small" href="{% url 'comics_update' comic.id %}">Edit</a>
-        <a class="waves-effect waves-light btn-small" href="{% url 'comics_delete' comic.id %}">Delete</a>
+  <div class="col s12">
+    <div class="col s6">
+      <div class="card-medium">
+        <div class="card-image">
+          <img src="{{ comic.img_url }}">
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">{{ comic.name }}</h4>
+          <h5>Published: {{ comic.published }}</h5>
+          <h6>Writer: {{ comic.writer }}</h6>
+          <h6>Cover: {{ comic.cover }}</h6>
+          <p>{{ comic.description }}</p>
+        </div>
+        <div class="card-action">
+          <a class="waves-effect waves-light btn-small red lighten-1" href="{% url 'comics_update' comic.id %}">Edit</a>
+          <a class="waves-effect waves-light btn-small red lighten-1" href="{% url 'comics_delete' comic.id %}">Delete</a>
+        </div>
       </div>
     </div>
-  <div class="">
-    <form action="{% url 'add_vote' comic.id %}" method="POST">
-      {% csrf_token %}
-      {{ vote_form.as_p }}
-      <input type="submit" class="btn" value="Add Vote">
-    </form>
-    <table class="striped">
-      <thead>
-        <tr>
-          <th>Voted on</th>
-          <th>Comment</th>
-          <th>Rated</th>
-        </tr>
+    <div class="col s6">
+      <h4>Vote here!</h4>
+      <form action="{% url 'add_vote' comic.id %}" method="POST">
+        {% csrf_token %}
+        {{ vote_form.as_p }}
+        <input class="waves-effect waves-light btn-small red lighten-1" type="submit" class="btn" value="Add Vote">
+      </form>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Voted on</th>
+            <th>Comment</th>
+            <th>Rated</th>
+          </tr>
         <tbody>
           {% for vote in comic.vote_set.all %}
           <tr>
@@ -45,19 +48,66 @@
           </tr>
           {% endfor %}
         </tbody>
-      </thead>
-    </table>
+        </thead>
+      </table>
+    </div>
   </div>
-</div>
-<script>
-  const dateEl = document.getElementById('id_date');
-  M.Datepicker.init(dateEl, {
-    format: 'yyyy-mm-dd',
-    defaultDate: new Date(),
-    setDefaultDate: true,
-    autoClose: true
-  });
-  const selectEl = document.getElementById('id_rating');
-  M.FormSelect.init(selectEl);
-</script>
-{% endblock %}
+  <div class="row">
+    <div class="col s6">
+      <h3>Marvel's Characters</h3>
+      {% if comic.characters.count %}
+      {% for character in comic.characters.all %}
+      <div class="card">
+        <div class="card-content">
+          <h4 class="card-title">
+            {{ character.name }}
+          </h4>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'unassoc_character' comic.id character.id %}" method="POST">
+            {% csrf_token %}
+            <button class="waves-effect waves-light btn-small red lighten-1" type="submit" class="btn">Remove</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <h5>No Characters Yet</h5>
+      {% endif %}
+    </div>
+    <div class="col s6">
+      <h3>Available Characters</h3>
+      {% if characters.count %}
+      {% for character in characters.all %}
+      <div class="card">
+        <div class="card-content">
+          <h4 class="card-title">
+            {{ character.name }}
+          </h4>
+        </div>
+        <div class="card-action">
+          <form action="{% url 'assoc_character' comic.id character.id %}" method="POST">
+            {% csrf_token %}
+            <button class="waves-effect waves-light btn-small red lighten-1" type="submit" class="btn">Add</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <h5> You inserted in {{comic.name}} all the Marvel's characters that were available!</h5>
+      {% endif %}
+    </div>
+  </div>
+
+  <script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+    const selectEl = document.getElementById('id_rating');
+    M.FormSelect.init(selectEl);
+  </script>
+  {% endblock %}

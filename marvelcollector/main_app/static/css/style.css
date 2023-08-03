@@ -16,3 +16,7 @@ body {
   span.card-title {
     background-color: rgba(0,0,0, 0.7);
   }
+
+a {
+  color: #039be5 !important;
+}

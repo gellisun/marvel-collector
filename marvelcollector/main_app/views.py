@@ -16,8 +16,11 @@ def comics_index(request):
 
 def comics_detail(request, comic_id):
     comic = Comic.objects.get(id=comic_id)
+    id_list = comic.characters.all().values_list('id')
+    characters_comic_doesnt_have = Character.objects.exclude(id__in=id_list)
+
     vote_form = VoteForm()
-    return render(request, 'comics/detail.html', {'comic': comic, 'vote_form': vote_form})
+    return render(request, 'comics/detail.html', {'comic': comic, 'vote_form': vote_form, 'characters': characters_comic_doesnt_have})
 
 def add_vote(request, comic_id):
     form = VoteForm(request.POST)
@@ -29,7 +32,7 @@ def add_vote(request, comic_id):
 
 class ComicCreate(CreateView):
     model = Comic
-    fields = '__all__'
+    fields = ['name', 'published', 'writer', 'penciler', 'cover', 'img_url', 'description']
 
 class ComicUpdate(UpdateView):
     model = Comic
@@ -56,3 +59,11 @@ class CharacterUpdate(UpdateView):
 class CharacterDelete(DeleteView):
   model = Character
   success_url = '/characters'
+
+def assoc_character(request, comic_id, character_id):
+   Comic.objects.get(id=comic_id).characters.add(character_id)
+   return redirect('detail', comic_id=comic_id)
+
+def unassoc_character(request, comic_id, character_id):
+   Comic.objects.get(id=comic_id).characters.remove(character_id)
+   return redirect('detail', comic_id=comic_id)
