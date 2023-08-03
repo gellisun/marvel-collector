@@ -17,20 +17,14 @@
     <header class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
-          <ul class="left hide-on-med-and-down">
+          <a href="#" class="brand-logo right">Marvel Collector</a>
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="{% url 'index' %}">All Marvel Comics</a></li>
             <li><a href="{% url 'comics_create' %}">Add a Comic</a></li>
             <li><a href="{% url 'characters_index' %}">All Marvel Characters</a></li>
             <li><a href="{% url 'characters_create' %}">Add a Character</a></li>
-          </ul>
-          <ul class="right">
-            <li>
-              <a href="{ url '' }" class="brand-logo center"
-                >&nbsp;&nbsp;Marvel Collector</a
-              >
-            </li>
-          </ul>
+          </ul>          
         </div>
       </nav>
     </header>
