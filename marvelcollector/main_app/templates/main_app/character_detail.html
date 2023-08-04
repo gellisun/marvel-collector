@@ -25,7 +25,7 @@
             <form action="{% url 'add_character_photo' character.id %}" enctype="multipart/form-data" method="POST"
                 class="card-panel">
                 {% csrf_token %}
-                <input type="file" name="charachter_photo-file">
+                <input type="file" name="character_photo_file">
                 <br><br>
                 <button type="submit" class="btn-small red lighten-1">Upload Character Photo</button>
             </form>

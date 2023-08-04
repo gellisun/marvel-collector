@@ -85,10 +85,7 @@ def add_comic_photo(request, comic_id):
             # build the full url string
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
             # we can assign to cat_id or cat (if you have a cat object)
-            comic_photo = ComicPhoto.objects.create(url=url, comic_id=comic_id)
-            print(url)
-            print(comic_id)
-            print(comic_photo.__dict__)
+            ComicPhoto.objects.create(url=url, comic_id=comic_id)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
@@ -96,7 +93,7 @@ def add_comic_photo(request, comic_id):
 
 def add_character_photo(request, character_id):
     # photo-file will be the "name" attribute on the <input type="file">
-    character_photo_file = request.FILES.get('character_photo-file', None)
+    character_photo_file = request.FILES.get('character_photo_file', None)
     if character_photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
@@ -112,4 +109,4 @@ def add_character_photo(request, character_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', character_id=character_id)
+    return redirect('characters_detail', pk=character_id)
