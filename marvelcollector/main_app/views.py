@@ -85,7 +85,10 @@ def add_comic_photo(request, comic_id):
             # build the full url string
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
             # we can assign to cat_id or cat (if you have a cat object)
-            ComicPhoto.objects.create(url=url, comic_id=comic_id)
+            comic_photo = ComicPhoto.objects.create(url=url, comic_id=comic_id)
+            print(url)
+            print(comic_id)
+            print(comic_photo.__dict__)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
